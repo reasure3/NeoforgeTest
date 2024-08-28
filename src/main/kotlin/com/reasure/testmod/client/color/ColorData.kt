@@ -20,6 +20,7 @@ open class ColorData(var r: Int = 255, var g: Int = 255, var b: Int = 255) {
     }
 }
 
+@OnlyIn(Dist.CLIENT)
 class FieryRedColorData(g: Int = 0) : ColorData(255, g, 0) {
     override fun toInterpolationInt(prevData: ColorData, partialTick: Float): Int {
         val green = (prevData.g + (this.g - prevData.g) * partialTick).roundToInt()
