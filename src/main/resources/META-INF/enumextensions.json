@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "TESTMOD_EXPERT",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "com/reasure/testmod/item/ModRarity",
+        "field": "EXPERT_PROXY"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "TESTMOD_MASTER",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "com/reasure/testmod/item/ModRarity",
+        "field": "MASTER_PROXY"
+      }
+    }
+  ]
+}

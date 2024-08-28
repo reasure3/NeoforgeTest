@@ -1,3 +1,5 @@
-// 1.21	2024-08-26T23:04:32.9456931	Item Models: testmod
+// 1.21	2024-08-28T17:47:59.1168275	Item Models: testmod
 0af0327785735e1026f029b1cb260c44fa6c85ba assets/testmod/models/item/example_block.json
+e941f637dc864aee191362fec6a98b32a8cad8f2 assets/testmod/models/item/test_expert_item.json
 86ea94b8ccedc579c9f8f55f98b3e2b9501b01db assets/testmod/models/item/test_item.json
+81d71c8c1e3a791641a25890e96a659fbf4cab48 assets/testmod/models/item/test_master_item.json

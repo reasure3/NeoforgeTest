@@ -10,5 +10,7 @@ class ModEnLangProvider(output: PackOutput): ModBaseLangProvider(output, "en_us"
         add(TranslationKeys.TEST_TAB, "Test")
         add(ModBlocks.EXAMPLE_BLOCK, "Example Block")
         add(ModItems.TEST_ITEM, "Test Item")
+        add(ModItems.TEST_EXPERT_ITEM, "Test Expert Item")
+        add(ModItems.TEST_MASTER_ITEM, "Test Master Item")
     }
 }

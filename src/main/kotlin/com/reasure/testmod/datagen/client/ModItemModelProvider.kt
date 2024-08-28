@@ -15,6 +15,8 @@ class ModItemModelProvider(output: PackOutput, exFileHelper: ExistingFileHelper)
     override fun registerModels() {
         blockItem(ModBlocks.EXAMPLE_BLOCK)
         basicItem(ModItems.TEST_ITEM)
+        basicItem(ModItems.TEST_EXPERT_ITEM)
+        basicItem(ModItems.TEST_MASTER_ITEM)
     }
 
     private fun blockItem(item: Block): ItemModelBuilder {
