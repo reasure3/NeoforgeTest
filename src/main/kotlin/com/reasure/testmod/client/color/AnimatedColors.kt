@@ -28,11 +28,13 @@ object AnimatedColors {
     }
 
     @OnlyIn(Dist.CLIENT)
-    object Rainbow {
-        private var state = State.INCREASE_GREEN
-        private val colorData = ColorData(255, 0, 0)
-        private val nextColorData = ColorData(255, 21, 0)
+    abstract class AnimatedColor(
+        private val colorData: ColorData,
+        private val nextColorData: ColorData,
+    ) {
+        protected abstract fun updateColor(nextColor: ColorData)
         var color = 0xFF0000
+            private set
 
         internal fun updateFrame(partialTick: Float) {
             color = nextColorData.toInterpolationInt(colorData, partialTick)
@@ -40,35 +42,47 @@ object AnimatedColors {
 
         internal fun updateTick() {
             colorData.copy(nextColorData)
+            updateColor(nextColorData)
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    object Rainbow : AnimatedColor(
+        ColorData(255, 0, 0),
+        ColorData(255, 21, 0)
+    ) {
+        private var state = State.INCREASE_GREEN
+
+        override fun updateColor(nextColor: ColorData) {
             when (state) {
                 State.INCREASE_GREEN -> {
-                    nextColorData.g = min(nextColorData.g + 21, 255)
-                    if (nextColorData.g == 255) state = State.DECREASE_RED
+                    nextColor.g = min(nextColor.g + 21, 255)
+                    if (nextColor.g == 255) state = State.DECREASE_RED
                 }
 
                 State.DECREASE_RED -> {
-                    nextColorData.r = max(nextColorData.r - 21, 0)
-                    if (nextColorData.r == 0) state = State.INCREASE_BLUE
+                    nextColor.r = max(nextColor.r - 21, 0)
+                    if (nextColor.r == 0) state = State.INCREASE_BLUE
                 }
 
                 State.INCREASE_BLUE -> {
-                    nextColorData.b = min(nextColorData.b + 21, 255)
-                    if (nextColorData.b == 255) state = State.DECREASE_GREEN
+                    nextColor.b = min(nextColor.b + 21, 255)
+                    if (nextColor.b == 255) state = State.DECREASE_GREEN
                 }
 
                 State.DECREASE_GREEN -> {
-                    nextColorData.g = max(nextColorData.g - 21, 0)
-                    if (nextColorData.g == 0) state = State.INCREASE_RED
+                    nextColor.g = max(nextColor.g - 21, 0)
+                    if (nextColor.g == 0) state = State.INCREASE_RED
                 }
 
                 State.INCREASE_RED -> {
-                    nextColorData.r = min(nextColorData.r + 21, 255)
-                    if (nextColorData.r == 255) state = State.DECREASE_BLUE
+                    nextColor.r = min(nextColor.r + 21, 255)
+                    if (nextColor.r == 255) state = State.DECREASE_BLUE
                 }
 
                 State.DECREASE_BLUE -> {
-                    nextColorData.b = max(nextColorData.b - 21, 0)
-                    if (nextColorData.b == 0) state = State.INCREASE_GREEN
+                    nextColor.b = max(nextColor.b - 21, 0)
+                    if (nextColor.b == 0) state = State.INCREASE_GREEN
                 }
             }
         }
@@ -79,27 +93,22 @@ object AnimatedColors {
     }
 
     @OnlyIn(Dist.CLIENT)
-    object FieryRed {
+    object FieryRed : AnimatedColor(
+        FieryRedColorData(),
+        FieryRedColorData(30)
+    ) {
         private var state = State.INCREASE_GREEN
-        private val colorData = FieryRedColorData()
-        private val nextColorData = FieryRedColorData(30)
-        var color = 0xFF0000
 
-        internal fun updateFrame(partialTick: Float) {
-            color = nextColorData.toInterpolationInt(colorData, partialTick)
-        }
-
-        internal fun updateTick() {
-            colorData.copy(nextColorData)
+        override fun updateColor(nextColor: ColorData) {
             when (state) {
                 State.INCREASE_GREEN -> {
-                    nextColorData.g = min(nextColorData.g + 30, 200)
-                    if (nextColorData.g == 200) state = State.DECREASE_GREEN
+                    nextColor.g = min(nextColor.g + 30, 200)
+                    if (nextColor.g == 200) state = State.DECREASE_GREEN
                 }
 
                 State.DECREASE_GREEN -> {
-                    nextColorData.g = max(nextColorData.g - 30, 0)
-                    if (nextColorData.g == 0) state = State.INCREASE_GREEN
+                    nextColor.g = max(nextColor.g - 30, 0)
+                    if (nextColor.g == 0) state = State.INCREASE_GREEN
                 }
             }
         }
